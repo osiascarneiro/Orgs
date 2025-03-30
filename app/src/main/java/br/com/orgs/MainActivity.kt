@@ -27,13 +27,20 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             OrgsTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                ProductCard()
             }
         }
+    }
+}
+
+@Composable
+private fun OrgsScreen() {
+    Scaffold(
+        modifier = Modifier.fillMaxSize()
+    ) { innerPadding ->
+        Greeting(
+            modifier = Modifier.padding(innerPadding)
+        )
     }
 }
 
@@ -46,25 +53,25 @@ fun Greeting(modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(id = androidx.core.R.drawable.ic_call_answer),
             contentDescription = "Produto",
-            modifier = modifier.size(56.dp).padding(end = 8.dp)
+            modifier = Modifier
+                .size(56.dp)
+                .padding(end = 8.dp)
         )
-        Column(modifier) {
+        Column {
             Text(
-                text = "Titulo",
-                modifier = modifier
+                text = "Titulo"
             )
             Text(
-                text = "R$ 70,00",
-                modifier = modifier
+                text = "R$ 70,00"
             )
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun GreetingPreview() {
+private fun GreetingPreview() {
     OrgsTheme {
-        Greeting()
+        OrgsScreen()
     }
 }
