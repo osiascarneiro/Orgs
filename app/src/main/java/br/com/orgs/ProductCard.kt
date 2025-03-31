@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,22 +35,28 @@ import br.com.orgs.ui.theme.Purple500
 import br.com.orgs.ui.theme.Teal200
 
 @Composable
-fun ProductCard() {
+fun ProductCard(
+    description: String = ""
+) {
     Surface(
         shape = RoundedCornerShape(15.dp),
-        shadowElevation = 4.dp,
-        modifier = Modifier.padding(8.dp)
+        shadowElevation = 4.dp
     ) {
-        ProductItem()
+        ProductItem(
+            description = description
+        )
     }
 }
 
 @Composable
-fun ProductItem() {
+private fun ProductItem(
+    description: String = ""
+) {
     Column(
         Modifier
-            .heightIn(250.dp, 300.dp)
+            .heightIn(250.dp, 270.dp)
             .width(200.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         val imageSize = 100.dp
 
@@ -90,6 +98,14 @@ fun ProductItem() {
                 fontWeight = FontWeight(400)
             )
         }
+        if (description.isNotBlank()) {
+            Text(
+                modifier = Modifier
+                    .background(Purple500)
+                    .padding(16.dp),
+                text = description
+            )
+        }
     }
 }
 
@@ -97,6 +113,6 @@ fun ProductItem() {
 @Composable
 private fun ProductCardPreview() {
     OrgsTheme {
-        ProductCard()
+        ProductCard(LoremIpsum(50).values.first())
     }
 }
